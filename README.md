@@ -26,9 +26,10 @@ cd lerobot-teleoperator-rebot-arm-102
 pip install -e .
 ```
 
-This package registers one teleoperator type:
+This package registers two teleoperator types:
 
 - `rebot_arm_102_leader`
+- `bi_rebot_arm_102_leader`
 
 ## Default Mapping
 
@@ -45,7 +46,7 @@ Follower-side direction mapping is defined in the B601 follower configuration.
 
 ## Usage
 
-Standard teleoperation:
+Standard single-arm teleoperation:
 
 ```bash
 lerobot-teleoperate \
@@ -56,6 +57,22 @@ lerobot-teleoperate \
     --robot.id=follower1 \
     --robot.port=/dev/ttyACM4 \
     --robot.can_adapter=damiao
+```
+
+Bimanual teleoperation:
+
+```bash
+lerobot-teleoperate \
+  --teleop.type=bi_rebot_arm_102_leader \
+  --teleop.id=rebot_arm_102_dual \
+  --teleop.left_arm_config.port=/dev/ttyUSB0 \
+  --teleop.right_arm_config.port=/dev/ttyUSB1 \
+  --robot.type=bi_seeed_b601_dm_follower \
+  --robot.id=b601_dual \
+  --robot.left_arm_config.port=/dev/ttyACM0 \
+  --robot.left_arm_config.can_adapter=damiao \
+  --robot.right_arm_config.port=/dev/ttyACM1 \
+  --robot.right_arm_config.can_adapter=damiao
 ```
 
 ## Example Scripts

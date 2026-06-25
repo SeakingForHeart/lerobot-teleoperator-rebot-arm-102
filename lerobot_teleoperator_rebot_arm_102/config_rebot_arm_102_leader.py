@@ -3,10 +3,9 @@ from dataclasses import dataclass, field
 from lerobot.teleoperators.config import TeleoperatorConfig
 
 
-@TeleoperatorConfig.register_subclass("rebot_arm_102_leader")
 @dataclass
-class RebotArm102LeaderConfig(TeleoperatorConfig):
-    """Configuration for the reBot Arm 102 leader arm."""
+class RebotArm102LeaderArmConfig:
+    """Per-arm configuration for one reBot Arm 102 leader arm."""
 
     port: str
     baudrate: int = 1_000_000
@@ -21,8 +20,7 @@ class RebotArm102LeaderConfig(TeleoperatorConfig):
             "gripper": 6,
         }
     )
-
-    joint_ranges: dict[str, list[int]] = field(
+    joint_ranges: dict[str, tuple[float, float]] = field(
         default_factory=lambda: {
             "shoulder_pan":  (-150.0, 150.0),
             "shoulder_lift": (-1.0, 170.0),
@@ -33,3 +31,9 @@ class RebotArm102LeaderConfig(TeleoperatorConfig):
             "gripper":       (-0.0, 270.0),
         }
     )
+
+
+@TeleoperatorConfig.register_subclass("rebot_arm_102_leader")
+@dataclass
+class RebotArm102LeaderConfig(TeleoperatorConfig, RebotArm102LeaderArmConfig):
+    """Configuration for the reBot Arm 102 leader arm."""

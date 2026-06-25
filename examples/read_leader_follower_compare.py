@@ -32,6 +32,14 @@ class PassiveSeeedB601RSFollower(SeeedB601RSFollower):
         super().connect(calibrate=calibrate)
         self.disable_torque()
 
+    def get_observation(self):
+        # The RobStride/motorbridge stack only refreshes angle feedback reliably
+        # after a MIT command frame. For read-only debugging, send a zero-force
+        # MIT command before polling so the arm stays passive while feedback updates.
+        for motor in self.motors.values():
+            motor.send_mit(0, 0, 0, 0, 0)
+        return super().get_observation()
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(

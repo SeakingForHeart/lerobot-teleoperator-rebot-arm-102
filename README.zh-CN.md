@@ -26,9 +26,10 @@ cd lerobot-teleoperator-rebot-arm-102
 pip install -e .
 ```
 
-本包注册了一个 teleoperator 类型：
+本包注册了两个 teleoperator 类型：
 
 - `rebot_arm_102_leader`
+- `bi_rebot_arm_102_leader`
 
 ## 默认映射
 
@@ -45,7 +46,7 @@ follower 侧翻转方向定义在 B601 从手配置中。
 
 ## 使用方法
 
-标准遥操作命令：
+标准单臂遥操作命令：
 
 ```bash
 lerobot-teleoperate \
@@ -56,6 +57,22 @@ lerobot-teleoperate \
     --robot.id=follower1 \
     --robot.port=/dev/ttyACM4 \
     --robot.can_adapter=damiao
+```
+
+双臂遥操作命令：
+
+```bash
+lerobot-teleoperate \
+  --teleop.type=bi_rebot_arm_102_leader \
+  --teleop.id=rebot_arm_102_dual \
+  --teleop.left_arm_config.port=/dev/ttyUSB0 \
+  --teleop.right_arm_config.port=/dev/ttyUSB1 \
+  --robot.type=bi_seeed_b601_dm_follower \
+  --robot.id=b601_dual \
+  --robot.left_arm_config.port=/dev/ttyACM0 \
+  --robot.left_arm_config.can_adapter=damiao \
+  --robot.right_arm_config.port=/dev/ttyACM1 \
+  --robot.right_arm_config.can_adapter=damiao
 ```
 
 ## 示例脚本
