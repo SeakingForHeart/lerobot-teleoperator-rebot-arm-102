@@ -29,7 +29,7 @@ class RebotArm102LeaderConfig(TeleoperatorConfig):
             "elbow_flex":    (-200.0, 1.0),
             "wrist_flex":    (-80.0, 90.0),
             "wrist_yaw":     (-90.0, 90.0),
-            "wrist_roll":    (-90.0, 90.0),
+            "wrist_roll":    (-130.0, 130.0),
             "gripper":       (-0.0, 270.0),
         }
     )
